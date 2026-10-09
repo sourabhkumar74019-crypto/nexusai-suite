@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAI Pro - 20-in-1 Micro-SaaS Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: { 50: '#FDFBF7', 100: '#FAF7F2', 200: '#F3EDE2', 300: '#E8DEC9', 800: '#3D362A', 900: '#1A1816' },
+                        dark: { 900: '#07090E', 800: '#0F1420', 700: '#172033', 600: '#1E293B' },
+                        brand: { purple: '#8B5CF6', cyan: '#06B6D4', pink: '#EC4899' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Light Mode Glass Panel */
+        .glass-panel {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid #E8DEC9;
+            box-shadow: 0 4px 20px -2px rgba(61, 54, 42, 0.05);
+        }
+
+        /* Dark Mode Glass Panel */
+        .dark .glass-panel {
+            background: rgba(15, 20, 32, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.15);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.25); border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-cream-100 text-cream-900 dark:bg-dark-900 dark:text-gray-100 min-h-screen flex flex-col justify-between transition-colors duration-300 selection:bg-brand-purple selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b">
+        <div class="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-purple via-brand-pink to-brand-cyan flex items-center justify-center font-black text-white text-sm shadow-md shadow-purple-500/20">
+                    NX
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <h1 class="font-extrabold text-base tracking-tight text-cream-900 dark:text-white">NexusAI</h1>
+                        <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-brand-purple border border-purple-500/20 uppercase tracking-widest">PRO SUITE</span>
+                    </div>
+                    <p class="text-[10px] text-cream-800/70 dark:text-gray-400 hidden sm:block">20 Commercial Grade AI Tools Engine</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button id="themeToggle" class="p-2.5 rounded-xl bg-cream-200 dark:bg-dark-800 hover:opacity-90 border border-cream-300 dark:border-white/10 transition text-sm cursor-pointer shadow-sm">
+                    <span id="themeIcon">☀️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <div class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full flex flex-col md:flex-row gap-6">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-80 flex-shrink-0 flex flex-col gap-4">
+            
+            <!-- Mobile Selector Header -->
+            <div class="md:hidden glass-panel rounded-2xl p-3 flex items-center justify-between">
+                <span class="text-xs font-bold text-cream-800 dark:text-gray-300">Selected AI Tool:</span>
+                <span id="mobileActiveToolName" class="text-xs font-bold text-brand-purple truncate max-w-[180px]">AI Prompt Studio</span>
+            </div>
+
+            <!-- Search & Tool List -->
+            <div class="glass-panel rounded-2xl p-4 flex flex-col gap-3">
+                <div class="relative">
+                    <input type="text" id="toolSearch" placeholder="🔍 Search 20 AI Tools..." class="w-full pl-9 pr-4 py-2.5 rounded-xl bg-cream-100 dark:bg-dark-900/80 border border-cream-300 dark:border-white/10 text-xs text-cream-900 dark:text-white placeholder-cream-800/50 dark:placeholder-gray-500 focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition">
+                    <span class="absolute left-3 top-2.5 text-xs">⚡</span>
+                </div>
+
+                <div class="text-[10px] font-extrabold uppercase tracking-wider text-cream-800/70 dark:text-gray-400 px-1 pt-1 flex items-center justify-between">
+                    <span>Available Tools</span>
+                    <span class="text-brand-purple font-mono font-bold">20 / 20</span>
+                </div>
+
+                <!-- Tools Nav List Container -->
+                <div id="toolsNavList" class="space-y-1.5 max-h-[320px] md:max-h-[620px] overflow-y-auto custom-scrollbar pr-1">
+                    <!-- Dynamic Tool Buttons Populated Here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Tool Execution Area -->
+        <main class="flex-1 glass-panel rounded-2xl p-5 sm:p-7 flex flex-col justify-between relative overflow-hidden">
+            <!-- Subtle Background Glow Element -->
+            <div class="absolute -top-24 -right-24 w-60 h-60 bg-brand-purple/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div>
+                <!-- Active Tool Header Banner -->
+                <div class="border-b border-cream-300 dark:border-white/10 pb-5 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span id="activeToolTag" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-purple-500/10 text-brand-purple border border-purple-500/20 font-mono">Tool #01</span>
+                            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">READY</span>
+                        </div>
+                        <h2 id="activeToolTitle" class="text-xl sm:text-2xl font-extrabold mt-1.5 text-cream-900 dark:text-white tracking-tight">AI Tool Loading...</h2>
+                        <p id="activeToolDesc" class="text-xs text-cream-800/70 dark:text-gray-400 mt-1 leading-relaxed">Select a tool from the sidebar to begin generating outputs.</p>
+                    </div>
+                </div>
+
+                <!-- Input Controls Section -->
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-cream-900 dark:text-gray-300 mb-2 flex items-center justify-between">
+                            <span>Input Prompt / Context Details</span>
+                            <span class="text-[10px] text-cream-800/60 dark:text-gray-500 font-normal">Supports detailed prompts</span>
+                        </label>
+                        <textarea id="userInput" rows="5" class="w-full px-4 py-3.5 rounded-xl bg-cream-100 dark:bg-dark-900/90 border border-cream-300 dark:border-white/10 text-xs sm:text-sm text-cream-900 dark:text-gray-100 placeholder-cream-800/40 dark:placeholder-gray-600 focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple resize-none shadow-inner custom-scrollbar transition" placeholder="Enter details..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-cream-900 dark:text-gray-300 mb-2">AI Tone & Style Persona</label>
+                            <select id="toneSelect" class="w-full px-3.5 py-3 rounded-xl bg-cream-100 dark:bg-dark-900/90 border border-cream-300 dark:border-white/10 text-xs text-cream-900 dark:text-gray-200 focus:outline-none focus:border-brand-purple">
+                                <option value="Professional & Persuasive">🎯 Professional & Persuasive</option>
+                                <option value="Creative & Catchy">💡 Creative & Catchy</option>
+                                <option value="Technical & Detailed">🧠 Technical & Detailed</option>
+                                <option value="Casual & Friendly">💬 Casual & Friendly</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button id="generateBtn" onclick="runAIGenerator()" class="w-full py-3 px-5 rounded-xl bg-gradient-to-r from-brand-purple via-purple-600 to-brand-pink text-white font-extrabold text-xs shadow-lg shadow-purple-600/20 hover:opacity-95 active:scale-[0.98] transition flex items-center justify-center space-x-2 cursor-pointer">
+                                <span>✨ GENERATE AI RESULT</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Output Display Terminal -->
+                <div class="mt-8">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <label class="text-xs font-bold uppercase tracking-wider text-cream-900 dark:text-gray-300 flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Generated Output Terminal</span>
+                        </label>
+                        <button onclick="copyToClipboard()" class="text-xs text-brand-purple font-bold hover:underline transition flex items-center space-x-1 bg-purple-500/10 px-3 py-1 rounded-lg border border-purple-500/20">
+                            <span>📋 Copy Result</span>
+                        </button>
+                    </div>
+                    <div id="outputArea" class="w-full min-h-[200px] p-4.5 rounded-xl bg-cream-100 dark:bg-dark-900 border border-cream-300 dark:border-white/10 text-xs sm:text-sm text-cream-900 dark:text-gray-300 font-mono leading-relaxed whitespace-pre-wrap custom-scrollbar overflow-y-auto">
+Output will appear here after clicking "GENERATE AI RESULT".
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Info Tag -->
+            <div class="mt-8 pt-4 border-t border-cream-300 dark:border-white/10 flex items-center justify-between text-[11px] text-cream-800/60 dark:text-gray-500 font-medium">
+                <span>NexusAI Dynamic SaaS Core v2.0</span>
+                <span>Powered by Gemini & OpenAI Engine</span>
+            </div>
+        </main>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>
