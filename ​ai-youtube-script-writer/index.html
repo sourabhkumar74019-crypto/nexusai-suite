@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube & Shorts Script Engine | NexusAI Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: { 50: '#FDFBF7', 100: '#FAF7F2', 200: '#F3EDE2', 300: '#E8DEC9', 800: '#3D362A', 900: '#1A1816' },
+                        brand: { purple: '#7C3AED', pink: '#DB2777' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .card-shadow { box-shadow: 0 4px 14px rgba(0,0,0,0.05); }
+        .dark .card-shadow { box-shadow: 0 4px 14px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body class="bg-cream-100 text-cream-900 dark:bg-[#0B0F19] dark:text-gray-100 min-h-screen flex flex-col justify-between transition-colors duration-300">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-cream-100/80 dark:bg-[#0B0F19]/80 border-b border-cream-200 dark:border-gray-800">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-xs font-bold px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-900/40 text-brand-purple dark:text-purple-300 border border-purple-200 dark:border-purple-800/50">
+                    Tool #07
+                </span>
+                <h1 class="font-bold text-sm">YouTube & Shorts Script Engine</h1>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button id="themeToggle" class="p-2.5 rounded-xl border border-cream-300 dark:border-gray-800 bg-cream-50 dark:bg-gray-900 hover:bg-cream-200 dark:hover:bg-gray-800 transition shadow-sm">
+                    <span id="themeIcon">☀️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="max-w-5xl mx-auto px-4 py-8 flex-1 w-full">
+        <div class="text-center max-w-2xl mx-auto mb-8">
+            <h2 class="text-3xl font-extrabold tracking-tight mb-2">YouTube & Shorts Script Engine</h2>
+            <p class="text-xs md:text-sm text-cream-800/70 dark:text-gray-400">Craft viral hooks, high-retention video scripts, visual cues, and compelling calls-to-action.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Left Panel: Inputs -->
+            <div class="p-6 rounded-2xl bg-cream-50 dark:bg-[#131927] border border-cream-200 dark:border-gray-800 card-shadow flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider text-cream-800/80 dark:text-gray-300">Video Topic / Title Concept</label>
+                        <input type="text" id="videoTopic" placeholder="e.g. How to Change Your Mindset & Build Financial Freedom" class="w-full px-3.5 py-2.5 rounded-xl bg-cream-100 dark:bg-gray-900 border border-cream-300 dark:border-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider text-cream-800/80 dark:text-gray-300">Video Format</label>
+                            <select id="videoFormat" class="w-full px-3.5 py-2.5 rounded-xl bg-cream-100 dark:bg-gray-900 border border-cream-300 dark:border-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                <option value="Shorts / Reels (60s Vertical)">Shorts / Reels (60s Vertical)</option>
+                                <option value="Long-Form Video (8-10 Mins)">Long-Form Video (8-10 Mins)</option>
+                                <option value="Faceless Motivational Script">Faceless Motivational</option>
+                                <option value="Tech / Product Review">Tech / Product Review</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider text-cream-800/80 dark:text-gray-300">Tone & Energy</label>
+                            <select id="scriptTone" class="w-full px-3.5 py-2.5 rounded-xl bg-cream-100 dark:bg-gray-900 border border-cream-300 dark:border-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                                <option value="High Energy & Energetic">High Energy & Energetic</option>
+                                <option value="Inspiring & Motivational">Inspiring & Motivational</option>
+                                <option value="Informative & Analytical">Informative & Analytical</option>
+                                <option value="Storytelling & Dramatic">Storytelling & Dramatic</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-1.5 uppercase tracking-wider text-cream-800/80 dark:text-gray-300">Key Takeaways / Closing Tagline</label>
+                        <textarea id="keyTakeaways" rows="4" placeholder="e.g. Focus on discipline over motivation. Closing phrase: Soch badal, Zindagi badal." class="w-full px-3.5 py-2.5 rounded-xl bg-cream-100 dark:bg-gray-900 border border-cream-300 dark:border-gray-800 text-xs focus:outline-none focus:ring-2 focus:ring-brand-purple leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+                <button onclick="generateScript()" id="generateBtn" class="w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-brand-purple to-brand-pink text-white font-bold text-xs hover:opacity-95 transition shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2">
+                    <span>🎬 Generate Script & Visual Cues</span>
+                </button>
+            </div>
+
+            <!-- Right Panel: Output -->
+            <div class="p-6 rounded-2xl bg-cream-50 dark:bg-[#131927] border border-cream-200 dark:border-gray-800 card-shadow flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4 border-b border-cream-200 dark:border-gray-800 pb-3">
+                        <span class="text-xs font-bold text-cream-800/80 dark:text-gray-300 uppercase tracking-wider">Generated Video Script</span>
+                        <button onclick="copyToClipboard()" id="copyBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cream-200 dark:bg-gray-800 hover:bg-brand-purple hover:text-white transition">
+                            📋 Copy Script
+                        </button>
+                    </div>
+
+                    <div id="outputArea" class="min-h-[260px] p-4 rounded-xl bg-cream-100 dark:bg-gray-900 border border-cream-200 dark:border-gray-800/80 text-xs leading-relaxed overflow-y-auto whitespace-pre-wrap text-cream-800/90 dark:text-gray-300">
+                        Enter your video topic on the left and click "Generate Script & Visual Cues".
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-cream-200 dark:border-gray-800/60 flex items-center justify-between text-[11px] text-gray-500">
+                    <span>Status: <strong id="statusText" class="text-emerald-500">Ready</strong></span>
+                    <span>Retention Engine: Active</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-cream-200 dark:border-gray-800 py-4 text-center text-xs text-cream-800/60 dark:text-gray-500">
+        NexusAI Suite App #07 • YouTube & Shorts Script Engine
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            themeIcon.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('nexus_theme', isDark ? 'dark' : 'light');
+        });
+
+        const savedTheme = localStorage.getItem('nexus_theme');
+        if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+            themeIcon.textContent = '🌙';
+        }
+
+        function generateScript() {
+            const topic = document.getElementById('videoTopic').value.trim();
+            const format = document.getElementById('videoFormat').value;
+            const tone = document.getElementById('scriptTone').value;
+            const takeaways = document.getElementById('keyTakeaways').value.trim();
+            const outputArea = document.getElementById('outputArea');
+            const statusText = document.getElementById('statusText');
+
+            if (!topic) {
+                alert('Please enter a Video Topic.');
+                return;
+            }
+
+            statusText.textContent = "Writing Video Script...";
+            outputArea.textContent = "⚙️ Structuring viral hooks, B-roll cues, and narrative pacing...";
+
+            setTimeout(() => {
+                let closing = takeaways || "Soch badal, Zindagi badal.";
+                
+                let result = `🎬 VIDEO SCRIPT: ${topic.toUpperCase()}\n`;
+                result += `FORMAT: ${format} | TONE: ${tone}\n`;
+                result += `--------------------------------------------------\n\n`;
+
+                result += `🪝 VIRAL HOOK (0:00 - 0:05)\n`;
+                result += `[VISUAL CUE: Fast-paced B-roll / Dynamic text overlay on screen]\n`;
+                result += `VOICEOVER: "If you keep doing what you've always done, you'll keep getting what you've always gotten. Stop scrolling and listen to this!"\n\n`;
+
+                result += `--------------------------------------------------\n`;
+                result += `📖 BODY & CORE NARRATIVE\n`;
+                result += `[VISUAL CUE: Cinematic footage, smooth transition with subtle background music]\n`;
+                result += `VOICEOVER: "When it comes to ${topic}, most people fail because they focus on short-term results instead of daily habits. True success isn't about luck; it's about shifting your internal framework."\n\n`;
+
+                result += `[VISUAL CUE: Highlighting 3 key bullet points on screen]\n`;
+                result += `VOICEOVER: "Here are 3 rules you need to follow:\n`;
+                result += `1. Master your daily routine before asking for big outcomes.\n`;
+                result += `2. Eliminate distractions that take away your focus.\n`;
+                result += `3. Stay consistent even when you don't feel like it."\n\n`;
+
+                result += `--------------------------------------------------\n`;
+                result += `🚀 CALL TO ACTION & CLOSING (END SCENE)\n`;
+                result += `[VISUAL CUE: Channel logo / Subscribe button animation]\n`;
+                result += `VOICEOVER: "Remember: ${closing} If you found this valuable, hit that Subscribe button and share this with someone who needs to hear it today!"`;
+
+                outputArea.textContent = result;
+                statusText.textContent = "Completed";
+            }, 600);
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('outputArea').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = "✅ Copied!";
+                setTimeout(() => btn.textContent = "📋 Copy Script", 2000);
+            });
+        }
+    </script>
+</body>
+</html>
